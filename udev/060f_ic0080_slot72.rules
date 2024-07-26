@@ -1,0 +1,4 @@
+ACTION=="add|remove", SUBSYSTEM=="tty", DEVPATH=="*/tty/ttymxc1", RUN+="/opt/unipi/tools/uhelper zigbee tty 72 $name"
+ACTION=="add|remove", SUBSYSTEM=="gpio", DEVPATH=="*/i2c-2/2-000a/gpiochip*",  RUN+="/opt/unipi/tools/uhelper zigbee gpiochip 72 $name"
+
+ACTION=="add|remove", SUBSYSTEM=="leds", DEVPATH=="*/loraleds/leds/zigbee-72-led1b",  RUN+="/opt/unipi/tools/uhelper zigbee led1 72 $name"

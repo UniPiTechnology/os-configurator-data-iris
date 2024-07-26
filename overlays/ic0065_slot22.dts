@@ -1,0 +1,59 @@
+/dts-v1/;
+
+
+/plugin/;
+
+/ {
+	fragment@0 {
+		target = <&i2c3>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			gpio_loranode22: pca9501@11 {
+				compatible = "nxp,pcf8574";
+				gpio-controller;
+				#gpio-cells = <2>;
+				reg = <11>;
+				lines-initial-states = <0x10>;
+				gpio-line-names = "SLOT22_LORANODE_LED1",
+				"SLOT22_LORANODE_LED2",
+				"SLOT22_LORANODE_CTS",
+				"SLOT22_LORANODE_RTS",
+				"SLOT22_LORANODE_RESET",
+				"SLOT22_LORANODE_BOOT",
+				"",
+				"";
+			};
+		};
+	};
+
+	fragment@3 {
+		
+		target = <&uart1>;
+		__overlay__ {
+			status = "okay";
+		};
+
+	};
+
+	fragment@4 {
+		target-path = "/";
+		__overlay__ {
+			loraleds {
+				compatible = "gpio-leds";
+				lora-led@0 {
+					label = "loranode-22-tx";
+					gpios = <&gpio_loranode22 0 1>;
+					default-state = "off";
+					linux,default-trigger = "none";
+				};
+				lora-led@1 {
+					label = "loranode-22-rx";
+					gpios = <&gpio_loranode22 1 1>;
+					default-state = "off";
+					linux,default-trigger = "none";
+				};
+			};
+		};
+	};
+};

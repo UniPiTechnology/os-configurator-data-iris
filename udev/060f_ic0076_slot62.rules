@@ -1,0 +1,4 @@
+
+ACTION=="add|remove", SUBSYSTEM=="gpio", DEVPATH=="*/i2c-2/2-0009/gpiochip*",  RUN+="/opt/unipi/tools/uhelper accgyro gpiochip 62 $name"
+
+ACTION=="add|remove", SUBSYSTEM=="spidev", DEVPATH=="*/spi_master/spi2/spi2.3/spidev/spidev2.3",  RUN+="/opt/unipi/tools/uhelper accgyro spidev 62 $name"

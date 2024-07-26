@@ -1,0 +1,54 @@
+/dts-v1/;
+
+
+/plugin/;
+
+/ {
+	fragment@1 {
+		
+		target = <&ecspi3>;
+		__overlay__ {
+			status = "okay";
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			unipispi12: unipispi@0 {
+				compatible = "unipispi";
+				reg = <0>;
+				status = "okay";
+				spi-max-frequency = <12000000>;
+				modbus-address = <12>;
+				neuron-board-index = <0>;
+			};
+		};
+
+	};
+
+	fragment@2 {
+		target = <&unipispi12>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			iogroup12 {
+				reg = <12>;
+				compatible = "unipi,unipi-mfd", "iogroup";
+				fw_variant = <0x2410>,  <0x2400>;
+				fw_name = "IC-Di1Ro2-1";
+				master_watchdog_enable = <2>;
+				di {
+					compatible = "unipi,gpio-di";
+					ngpio = <1>;
+					value-reg = <0>;
+					debounce-reg = <1010>;
+					counter-reg = <3>;
+				};
+				do {
+					compatible = "unipi,gpio-do";
+					ngpio = <2>;
+					value-coil = <0>;
+				};
+			};
+		};
+	};
+};

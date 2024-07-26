@@ -1,0 +1,2 @@
+
+ACTION=="add|remove", SUBSYSTEM=="tty", DEVPATH=="*/tty/ttymxc1", RUN+="/opt/unipi/tools/uhelper rs232.72 tty 72 $name"

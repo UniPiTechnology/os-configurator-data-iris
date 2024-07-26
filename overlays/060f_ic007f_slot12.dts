@@ -1,0 +1,72 @@
+/dts-v1/;
+
+
+/plugin/;
+
+/ {
+	fragment@0 {
+		target = <&i2c3>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			gpio_slot12: pca9501@8 {
+				compatible = "nxp,pcf8574";
+				gpio-controller;
+				#gpio-cells = <2>;
+				reg = <8>;
+				lines-initial-states = <0x10>;
+                gpio-line-names ="loranode_12_led1g",
+                "loranode_12_led1b",
+                "loranode_12_cts",
+                "loranode_12_rts",
+                "loranode_12_reset",
+                "loranode_12_boot",
+                "loranode_12_led1r",
+                "loranode_12_led2w";
+                
+			};
+		};
+	};
+
+	fragment@3 {
+		
+		target = <&uart4>;
+		__overlay__ {
+			status = "okay";
+		};
+
+	};
+
+	fragment@4 {
+		target-path = "/";
+		__overlay__ {
+			loraleds {
+				compatible = "gpio-leds";
+				lora-led@0 {
+					label = "loranode-12-led1g";
+					gpios = <&gpio_slot12 0 1>;
+					default-state = "off";
+					linux,default-trigger = "none";
+				};
+				lora-led@1 {
+					label = "loranode-12-led1b";
+					gpios = <&gpio_slot12 1 1>;
+					default-state = "off";
+					linux,default-trigger = "none";
+				};				
+				lora-led@2 {
+					label = "loranode-12-led1r";
+					gpios = <&gpio_slot12 6 1>;
+					default-state = "off";
+					linux,default-trigger = "none";
+				};
+				lora-led@3 {
+					label = "loranode-12-led2w";
+					gpios = <&gpio_slot12 7 1>;
+					default-state = "off";
+					linux,default-trigger = "none";
+				};
+			};
+		};
+	};
+};

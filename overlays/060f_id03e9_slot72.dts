@@ -1,0 +1,47 @@
+/dts-v1/;
+
+
+/plugin/;
+
+/ {
+	fragment@0 {
+		target = <&i2c3>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			gpio_iqrf: pca9501@10 {
+				compatible = "nxp,pcf8574";
+				gpio-controller;
+				#gpio-cells = <2>;
+				reg = <10>;
+                lines-initial-states = <0xFF>;
+				gpio-line-names = "",
+					"",
+					"",
+					"SLOT72_EXT_DI1",
+					"SLOT72_EXT_DI2",
+					"SLOT72_BUTTON1",
+					"SLOT72_BUTTON2",
+					"SLOT72_ESP32_EN";
+			};
+		};
+	};
+
+	fragment@2 {
+		
+		target = <&uart4>;
+		__overlay__ {
+			status = "okay";
+		};
+
+	};
+
+	fragment@3 {
+		
+		target = <&uart2>;
+		__overlay__ {
+			status = "okay";
+		};
+
+	};
+};

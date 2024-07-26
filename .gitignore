@@ -1,0 +1,7 @@
+*~
+debian/unipi-os-configurator/
+debian/changelog
+*.substvars
+*.debhelper
+unipi-values.c
+unipi_values.py

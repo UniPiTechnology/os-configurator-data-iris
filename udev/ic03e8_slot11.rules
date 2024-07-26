@@ -1,0 +1,8 @@
+ACTION=="add|remove", SUBSYSTEM=="tty", DEVPATH=="*/tty/ttymxc3", RUN+="/opt/unipi/tools/uhelper iqrf tty 11 $name"
+
+ACTION=="add|remove", SUBSYSTEM=="gpio", DEVPATH=="*/i2c-2/2-0009/gpiochip*",  RUN+="/opt/unipi/tools/uhelper iqrf gpiochip 11 $name"
+
+ACTION=="add|remove", SUBSYSTEM=="spidev", DEVPATH=="*/spi_master/spi1/spi1.0/spidev/spidev1.0",  RUN+="/opt/unipi/tools/uhelper iqrf spidev 11 $name"
+
+ACTION=="add|remove", SUBSYSTEM=="leds", DEVPATH=="*/led_slot11/leds/iqrf-11-ledr",  RUN+="/opt/unipi/tools/uhelper iqrf led.ledr 11 $name"
+ACTION=="add|remove", SUBSYSTEM=="leds", DEVPATH=="*/led_slot11/leds/iqrf-11-ledg",  RUN+="/opt/unipi/tools/uhelper iqrf led.ledg 11 $name"

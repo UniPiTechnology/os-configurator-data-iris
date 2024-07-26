@@ -1,0 +1,67 @@
+/dts-v1/;
+
+
+/plugin/;
+
+/ {
+	fragment@0 {
+		target = <&i2c3>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			gpio_slot72: pca9501@10 {
+				compatible = "nxp,pcf8574";
+				gpio-controller;
+				#gpio-cells = <2>;
+				reg = <10>;
+				lines-initial-states = <0xfd>;
+				gpio-line-names = "zigbee_72_btn",
+				                  "zigbee_72_bootn",
+				                  "zigbee_72_led1",
+				                  "",
+				                  "zigbee_72_pti_frame",
+				                  "zigbee_72_pti_data",
+				                  "zigbee_72_resetn", "";
+				reset_n-hog {
+					gpio-hog;
+					gpios = <6 1>;
+					output-low;
+					line-name = "reset";
+				};
+				boot_n-hog {
+					gpio-hog;
+					gpios = <1 1>;
+					output-low;
+					line-name = "boot";
+				};
+			};
+		};
+	};
+
+	fragment@3 {
+		
+		target = <&uart2>;
+		__overlay__ {
+			status = "okay";
+			pinctrl-names = "default";
+			pinctrl-0 = <&pinctrl_uart2>, <&pinctrl_uart2_ctrl>;
+			rts-gpios = <&gpio4 29 0>;
+		};
+
+	};
+
+	fragment@4 {
+		target-path = "/";
+		__overlay__ {
+			loraleds {
+				compatible = "gpio-leds";
+				zigbee-led@0 {
+					label = "zigbee-72-led1";
+					gpios = <&gpio_slot72 2 1>;
+					default-state = "off";
+					linux,default-trigger = "none";
+				};
+			};
+		};
+	};
+};

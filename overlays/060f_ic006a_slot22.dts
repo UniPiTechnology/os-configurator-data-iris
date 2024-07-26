@@ -1,0 +1,86 @@
+/dts-v1/;
+
+
+/plugin/;
+
+/ {
+	fragment@1 {
+		target = <&i2c3>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			gpio_slot22: pca9501@11 {
+				compatible = "nxp,pcf8574";
+				gpio-controller;
+				#gpio-cells = <2>;
+				reg = <11>;
+				
+			};
+		};
+	};
+	fragment@2 {
+		
+		target = <&uart2>;
+		__overlay__ {
+			status = "okay";
+			pinctrl-names = "default";
+			pinctrl-0 = <&pinctrl_uart2>, <&pinctrl_uart2_ctrl>;
+			linux,rs485-enabled-at-boot-time;
+			rts-gpios = <&gpio4 29 0>;
+		};
+
+	};
+	fragment@3 {
+		
+		target = <&uart4>;
+		__overlay__ {
+			status = "okay";
+			pinctrl-names = "default";
+			pinctrl-0 = <&pinctrl_uart4>, <&pinctrl_uart4_ctrl>;
+			linux,rs485-enabled-at-boot-time;
+			rts-gpios = <&gpio3 20 0>;
+		};
+
+	};
+
+	fragment@4 {
+		target-path = "/";
+		__overlay__ {
+			led_slot22 {
+				compatible = "gpio-leds";
+				uart-led@0 {
+					label = "rs485-led22.aux";
+					gpios = <&gpio_slot22 3 1>;
+					default-state = "off";
+					linux,default-trigger = "none";
+				};
+				uart-led@1 {
+					label = "rs485-led22.1-tx";
+					gpios = <&gpio_slot22 6 1>;
+					default-state = "off";
+					linux,default-trigger = "ttymxc1-tx";
+				};
+				uart-led@2 {
+					label = "rs485-led22.1-rx";
+					gpios = <&gpio_slot22 7 1>;
+					default-state = "off";
+					linux,default-trigger = "ttymxc1-rx";
+				};
+				uart-led@3 {
+					label = "rs485-led22.2-tx";
+					gpios = <&gpio_slot22 4 1>;
+					linux,default-trigger = "ttymxc3-tx";
+					default-state = "off";
+				};
+				uart-led@4 {
+					label = "rs485-led22.2-rx";
+					gpios = <&gpio_slot22 5 1>;
+					default-state = "off";
+					linux,default-trigger = "ttymxc3-rx";
+				};
+
+			};
+		};
+	}; 
+
+};

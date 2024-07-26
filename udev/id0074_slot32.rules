@@ -1,0 +1,19 @@
+
+#::: ENV{_LTE32_}="<lte>"
+ACTION=="add|remove", SUBSYSTEM=="tty", DEVPATH=="*ci_hdrc.0/usb1/1-1/1-1:1.3/tty*",  RUN+="/opt/unipi/tools/uhelper lte.$env{_LTE32_} tty1 32 $name"
+ACTION=="add|remove", SUBSYSTEM=="tty", DEVPATH=="*ci_hdrc.0/usb1/1-1/1-1:1.4/tty*",  RUN+="/opt/unipi/tools/uhelper lte.$env{_LTE32_} tty2 32 $name"
+ACTION=="add|remove", SUBSYSTEM=="net", DEVPATH=="*ci_hdrc.0/usb1/1-1/1-1:1.0/net/*", RUN+="/opt/unipi/tools/uhelper lte.$env{_LTE32_} net  32 $name"
+
+ACTION=="add|remove", SUBSYSTEM=="tty", DEVPATH=="*ci_hdrc.0/usb1/1-1/1-1.3/1-1.3:1.3/tty*",  RUN+="/opt/unipi/tools/uhelper lte.$env{_LTE32_} tty1 32 $name"
+ACTION=="add|remove", SUBSYSTEM=="tty", DEVPATH=="*ci_hdrc.0/usb1/1-1/1-1.3/1-1.3:1.4/tty*",  RUN+="/opt/unipi/tools/uhelper lte.$env{_LTE32_} tty2 32 $name"
+ACTION=="add|remove", SUBSYSTEM=="net", DEVPATH=="*ci_hdrc.0/usb1/1-1/1-1.3/1-1.3:1.0/net/*", RUN+="/opt/unipi/tools/uhelper lte.$env{_LTE32_} net  32 $name"
+
+ACTION=="add|remove", SUBSYSTEM=="rfkill", DEVPATH=="/devices/platform/lte_kill32/rfkill/rfkill0", RUN+="/opt/unipi/tools/uhelper lte.$env{_LTE32_} rfkill  32 $name"
+ACTION=="add|remove", SUBSYSTEM=="rfkill", DEVPATH=="/devices/platform/lte_kill32/rfkill/rfkill1", RUN+="/opt/unipi/tools/uhelper lte.$env{_LTE32_} rfreset 32 $name"
+
+ACTION=="add|remove", SUBSYSTEM=="leds", DEVPATH=="*/led_slot32/leds/lte-32-sig-r",  RUN+="/opt/unipi/tools/uhelper lte.$env{_LTE32_} led.sig.r 32 $name"
+ACTION=="add|remove", SUBSYSTEM=="leds", DEVPATH=="*/led_slot32/leds/lte-32-sig-g",  RUN+="/opt/unipi/tools/uhelper lte.$env{_LTE32_} led.sig.g 32 $name"
+ACTION=="add|remove", SUBSYSTEM=="leds", DEVPATH=="*/led_slot32/leds/lte-32-sig-b",  RUN+="/opt/unipi/tools/uhelper lte.$env{_LTE32_} led.sig.b 32 $name"
+ACTION=="add|remove", SUBSYSTEM=="leds", DEVPATH=="*/led_slot32/leds/lte-32-int-r",  RUN+="/opt/unipi/tools/uhelper lte.$env{_LTE32_} led.int.r 32 $name"
+ACTION=="add|remove", SUBSYSTEM=="leds", DEVPATH=="*/led_slot32/leds/lte-32-int-g",  RUN+="/opt/unipi/tools/uhelper lte.$env{_LTE32_} led.int.g 32 $name"
+ACTION=="add|remove", SUBSYSTEM=="leds", DEVPATH=="*/led_slot32/leds/lte-32-int-b",  RUN+="/opt/unipi/tools/uhelper lte.$env{_LTE32_} led.int.b 32 $name"

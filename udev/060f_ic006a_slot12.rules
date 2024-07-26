@@ -1,0 +1,8 @@
+
+ACTION=="add|remove", SUBSYSTEM=="tty", DEVPATH=="*/tty/ttymxc1", RUN+="/opt/unipi/tools/uhelper rs485.12.1 tty 12 $name"
+ACTION=="add|remove", SUBSYSTEM=="tty", DEVPATH=="*/tty/ttymxc3", RUN+="/opt/unipi/tools/uhelper rs485.12.2 tty 12 $name"
+ACTION=="add|remove", SUBSYSTEM=="leds", DEVPATH=="*/led_slot12/leds/rs485-led12.1-rx",  RUN+="/opt/unipi/tools/uhelper rs485.12.1 led.rx 12 $name"
+ACTION=="add|remove", SUBSYSTEM=="leds", DEVPATH=="*/led_slot12/leds/rs485-led12.1-tx",  RUN+="/opt/unipi/tools/uhelper rs485.12.1 led.tx 12 $name"
+ACTION=="add|remove", SUBSYSTEM=="leds", DEVPATH=="*/led_slot12/leds/rs485-led12.2-rx",  RUN+="/opt/unipi/tools/uhelper rs485.12.2 led.rx 12 $name"
+ACTION=="add|remove", SUBSYSTEM=="leds", DEVPATH=="*/led_slot12/leds/rs485-led12.2-tx",  RUN+="/opt/unipi/tools/uhelper rs485.12.2 led.tx 12 $name"
+ACTION=="add|remove", SUBSYSTEM=="leds", DEVPATH=="*/led_slot12/leds/rs485-led12.aux",  RUN+="/opt/unipi/tools/uhelper rs485.12.2 led.aux 12 $name"

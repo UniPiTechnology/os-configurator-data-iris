@@ -1,0 +1,74 @@
+/dts-v1/;
+
+
+/plugin/;
+
+/ {
+	fragment@1 {
+		target = <&i2c3>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			gpio_slot42: pca9501@13 {
+				compatible = "nxp,pcf8574";
+				gpio-controller;
+				#gpio-cells = <2>;
+				reg = <13>;
+				
+			};
+		};
+	};
+
+	fragment@4 {
+		target-path = "/";
+		__overlay__ {
+			lte_kill42 {
+				compatible = "unipi,rfkill-quectel912";
+				type = "wwan";
+				algo = "pulse";
+				rfkill-gpio = <&gpio_slot42 0 1>;
+				reset-gpio = <&gpio_slot42 1 1>;
+				monitor-usb = "usbslot42";
+			};
+		};
+	}; 
+
+	fragment@5 {
+		target-path = "/";
+		__overlay__ {
+			led_slot42 {
+				compatible = "gpio-leds";
+				lte-led@1 {
+					label = "lte-42-sig-r";
+					gpios = <&gpio_slot42 2 1>;
+					default-state = "off";
+				};
+				lte-led@2 {
+					label = "lte-42-sig-g";
+					gpios = <&gpio_slot42 3 1>;
+					default-state = "off";
+				};
+				lte-led@3 {
+					label = "lte-42-sig-b";
+					gpios = <&gpio_slot42 4 1>;
+					default-state = "off";
+				};
+				lte-led@4 {
+					label = "lte-42-int-r";
+					gpios = <&gpio_slot42 5 1>;
+					default-state = "off";
+				};
+				lte-led@5 {
+					label = "lte-42-int-g";
+					gpios = <&gpio_slot42 6 1>;
+					default-state = "off";
+				};
+				lte-led@6 {
+					label = "lte-42-int-b";
+					gpios = <&gpio_slot42 7 1>;
+					default-state = "off";
+				};
+			};
+		};
+	};
+};

@@ -1,0 +1,5 @@
+ACTION=="add|remove", SUBSYSTEM=="tty", DEVPATH=="*/tty/ttymxc1", RUN+="/opt/unipi/tools/uhelper loranode tty 72 $name"
+ACTION=="add|remove", SUBSYSTEM=="gpio", DEVPATH=="*/i2c-2/2-000a/gpiochip*",  RUN+="/opt/unipi/tools/uhelper loranode gpiochip 72 $name"
+
+ACTION=="add|remove", SUBSYSTEM=="leds", DEVPATH=="*/loraleds/leds/loranode-72-tx",  RUN+="/opt/unipi/tools/uhelper loranode led.tx 72 $name"
+ACTION=="add|remove", SUBSYSTEM=="leds", DEVPATH=="*/loraleds/leds/loranode-72-rx",  RUN+="/opt/unipi/tools/uhelper loranode led.rx 72 $name"

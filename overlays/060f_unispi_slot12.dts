@@ -1,0 +1,39 @@
+/dts-v1/;
+
+
+/plugin/;
+
+/ {
+	fragment@1 {
+		
+		target = <&ecspi3>;
+		__overlay__ {
+			status = "okay";
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			unipispi12: unipispi@0 {
+				compatible = "unipispi";
+				reg = <0>;
+				status = "okay";
+				spi-max-frequency = <6000000>;
+				modbus-address = <12>;
+				neuron-board-index = <0>;
+			};
+		};
+
+	};
+
+	fragment@2 {
+		target = <&unipispi12>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			probe-always-succeeds = <1>;
+			iogroup12 {
+				reg = <12>;
+				compatible = "unipi,unipi-mfd", "iogroup";
+			};
+		};
+	};
+};

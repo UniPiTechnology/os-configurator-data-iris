@@ -1,0 +1,7 @@
+
+ACTION=="add|remove", SUBSYSTEM=="tty", DEVPATH=="*/tty/ttymxc1", RUN+="/opt/unipi/tools/uhelper gps tty 21 $name"
+
+ACTION=="add|remove", SUBSYSTEM=="leds", DEVPATH=="*/gpsleds/leds/unipi-led-gps-21-user",  RUN+="/opt/unipi/tools/uhelper gps led.user 21 $name"
+
+
+ACTION=="add|remove", SUBSYSTEM=="gpio", DEVPATH=="*/i2c-2/2-000a/gpiochip*",  RUN+="/opt/unipi/tools/uhelper gps gpiochip 21 $name"

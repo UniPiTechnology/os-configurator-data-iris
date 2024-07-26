@@ -1,0 +1,55 @@
+/dts-v1/;
+
+
+/plugin/;
+
+/ {
+	fragment@1 {
+		
+		target = <&ecspi2>;
+		__overlay__ {
+			status = "okay";
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			unipispi72: unipispi@1 {
+				compatible = "unipispi";
+				reg = <1>;
+				status = "okay";
+				spi-max-frequency = <12000000>;
+				modbus-address = <72>;
+				neuron-board-index = <1>;
+			};
+		};
+
+	};
+
+	fragment@2 {
+		target = <&unipispi72>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			iogroup1_72 {
+				reg = <72>;
+				compatible = "unipi,unipi-mfd", "iogroup";
+				variant1 { 
+					fw_variant = <0x2b10>;
+					fw_name = "ID-Do16-1";
+					board_name = "IM205";
+					cycle_counter = <1012>;
+					master_watchdog_enable = <1>;
+
+					do {
+						compatible = "unipi,gpio-do";
+						gpio-controller;
+						#gpio-cells = <2>;
+						gpio-line-names = "DO72_1", "DO72_2" , "DO72_3", "DO72_4", "DO72_5", "DO72_6", "DO72_7", "DO72_8", "DO72_9", "DO72_10", "DO72_11", "DO72_12", "DO72_13", "DO72_14", "DO72_15", "DO72_16";
+						ngpio = <16>;
+						value-coil = <0>;
+					};
+				};
+			};
+		};
+	};
+};

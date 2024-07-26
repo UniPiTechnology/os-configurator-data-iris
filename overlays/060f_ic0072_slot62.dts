@@ -1,0 +1,52 @@
+/dts-v1/;
+
+
+/plugin/;
+
+/ {
+	fragment@1 {
+		target = <&i2c3>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			gpio_slot62: pca9501@9 {
+				compatible = "nxp,pcf8574";
+				gpio-controller;
+				#gpio-cells = <2>;
+				reg = <9>;
+				
+			};
+		};
+	};
+
+	fragment@3 {
+		
+		target = <&uart4>;
+		__overlay__ {
+			status = "okay";
+		};
+
+	};
+
+	fragment@4 {
+		target-path = "/";
+		__overlay__ {
+			uartleds {
+				compatible = "gpio-leds";
+				uart-led@0 {
+					label = "unipi-led62-rx";
+					gpios = <&gpio_slot62 0 1>;
+					default-state = "off";
+					linux,default-trigger = "ttymxc3-rx";
+				};
+				uart-led@1 {
+					label = "unipi-led62-tx";
+					gpios = <&gpio_slot62 1 1>;
+					linux,default-trigger = "ttymxc3-tx";
+					default-state = "off";
+				};
+			};
+		};
+	}; 
+
+};

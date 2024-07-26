@@ -1,0 +1,3 @@
+ACTION=="add|remove", SUBSYSTEM=="iogroup", DEVPATH=="*/iogroup22",  RUN+="/opt/unipi/tools/uhelper '' iogroup22 22 $name"
+ACTION=="add|remove", SUBSYSTEM=="unipi_gpio", DEVPATH=="*/iogroup22/*",  RUN+="/opt/unipi/tools/uhelper '' $name 22 $name"
+ACTION=="add|remove", SUBSYSTEM=="iio", DEVPATH=="*/iogroup22/*",  RUN+="/opt/unipi/tools/uhelper '' $name 22 $name"

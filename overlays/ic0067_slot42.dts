@@ -1,0 +1,58 @@
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+#include "imx8mm-pinfunc.h"
+
+/dts-v1/;
+
+
+/plugin/;
+
+/ {
+	fragment@1 {
+		
+		target = <&ecspi3>;
+		__overlay__ {
+			status = "okay";
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			unipispi42: unipispi@3 {
+				compatible = "unipispi";
+				reg = <3>;
+				status = "okay";
+				spi-max-frequency = <12000000>;
+				modbus-address = <42>;
+				neuron-board-index = <3>;
+			};
+		};
+
+	};
+
+	fragment@2 {
+		target = <&unipispi42>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			iogroup42 {
+				reg = <42>;
+				compatible = "unipi,unipi-mfd", "iogroup";
+				fw_variant = <0x1A10>, <0x1A00>;
+				fw_name = "IC-Light1P-1";
+				board_name = "IC-Light1P-1";
+				cycle_counter = <1026>;
+				master_watchdog_enable = <6>;
+
+				dali {
+					/*
+				pinctrl-names = "default";
+				pinctrl-0 = <&pinctrl_slotirq3>;
+				interrupt-parent = <&gpio4>;
+				interrupts = <28 0>;*/
+					compatible = "unipi,dali";
+					status-reg = <0>;
+				};
+			};
+		};
+	};
+
+};

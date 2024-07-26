@@ -1,0 +1,46 @@
+/dts-v1/;
+
+
+/plugin/;
+
+/ {
+	fragment@1 {
+                target = <&i2c3>;  
+                __overlay__ {
+                        #address-cells = <1>;
+                        #size-cells = <0>;
+                        gpio_slot12: pca9501@8 {
+                                compatible = "nxp,pcf8574";
+                                gpio-controller;
+                                #gpio-cells = <2>;
+                                reg = <8>;
+                                gpio-line-names = "GPS_nRST",
+                                "GPS_extInt","","","","","","GPS_LED";
+                        };
+                };
+	};
+
+	fragment@3 {
+		
+		target = <&uart4>;
+		__overlay__ {
+			status = "okay";
+		};
+
+	};
+
+	fragment@4 {
+		target-path = "/";
+		__overlay__ {
+			gpsleds {
+				compatible = "gpio-leds";
+				gps-led@1 {
+					label = "unipi-led-gps-12-user";
+					gpios = <&gpio_slot12 7 1>;
+					default-state = "off";
+				};
+			};
+		};
+	}; 
+
+};

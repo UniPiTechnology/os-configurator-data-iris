@@ -1,0 +1,83 @@
+/dts-v1/;
+
+
+/plugin/;
+
+/ {
+	fragment@0 {
+		target = <&i2c3>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			gpio_iqrf: pca9501@10 {
+				compatible = "nxp,pcf8574";
+				gpio-controller;
+				#gpio-cells = <2>;
+				reg = <10>;
+				gpio-line-names = "SLOT21_IQRF_BTN",
+					"SLOT21_IQRF_UART_EN",
+					"SLOT21_IQRF_GW_LEDR",
+					"SLOT21_IQRF_GW_LEDG",
+					"SLOT21_IQRF_SPI_EN",
+					"SLOT21_IQRF_I2C_EN",
+					"SLOT21_IQRF_SPI_PGM_EN",
+					"SLOT21_IQRF_TR_PWR_EN";
+			};
+		};
+	};
+
+	fragment@1 {
+		target = <&ecspi2>;
+		__overlay__ {
+			status = "okay";
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			spidev_iqrf: spi@1 {
+				compatible = "rohm,dh2228fv";
+				reg = <1>;
+				status = "okay";
+				spi-max-frequency = <8000000>;
+			};
+		};
+	};
+
+	fragment@2 {
+		
+		target = <&uart4>;
+		__overlay__ {
+			status = "okay";
+		};
+
+	};
+
+	fragment@3 {
+		
+		target = <&uart2>;
+		__overlay__ {
+			status = "okay";
+		};
+
+	};
+
+	fragment@4 {
+		target-path = "/";
+		__overlay__ {
+			led_slot21 {
+				compatible = "gpio-leds";
+				iqrf-led@1 {
+					label = "iqrf-21-ledr";
+					gpios = <&gpio_iqrf 2 0>;
+					default-state = "off";
+					color = <1>;
+				};
+				iqrf-led@2 {
+					label = "iqrf-21-ledg";
+					gpios = <&gpio_iqrf 3 0>;
+					default-state = "off";
+					color = <2>;
+				};
+			};
+		}; 
+	};
+};

@@ -1,0 +1,43 @@
+/dts-v1/;
+
+
+/plugin/;
+
+/ {
+	fragment@1 {
+		
+		target = <&ecspi3>;
+		__overlay__ {
+			status = "okay";
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			unipispi52: unipispi@4 {
+				compatible = "unipispi";
+				reg = <4>;
+				status = "okay";
+				spi-max-frequency = <12000000>;
+				modbus-address = <52>;
+				neuron-board-index = <4>;
+			};
+		};
+
+	};
+
+        fragment@2 {
+                target = <&unipispi52>;
+                __overlay__ {
+                        #address-cells = <1>;
+                        #size-cells = <0>;
+                        iogroup1_52 {
+                                reg = <52>;
+                                compatible = "unipi,unipi-mfd", "iogroup";
+                                variant1 {
+                                        fw_variant = <0x2f10>;
+                                        fw_name = "ID-Em3f-1";
+                                        board_name = "IM507";
+                                };
+                        };
+                };
+        };
+};

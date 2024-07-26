@@ -1,0 +1,79 @@
+/dts-v1/;
+
+
+/plugin/;
+
+/ {
+	fragment@0 {
+		target = <&i2c3>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			gpio_can: pca9501@13 {
+				compatible = "nxp,pcf8574";
+				gpio-controller;
+				#gpio-cells = <2>;
+				reg = <13>;
+				gpio-line-names = "SLOT42_IQRF_BTN",
+					"SLOT42_CANFD_LED0",
+					"SLOT42_CANFD_LED1",
+					"SLOT42_CANFD_RESET_N";
+			};
+		};
+	};
+
+	fragment@1 {
+		target = <&ecspi3>;
+		__overlay__ {
+			status = "okay";
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			canfd: spi@3 {
+				compatible = "microchip,mcp2515";
+				reg = <3>;
+				status = "okay";
+				spi-max-frequency = <10000000>;
+				clocks = <&can42_osc>;
+				pinctrl-names = "default";
+				pinctrl-0 = <&pinctrl_slotirq3>;
+				interrupt-parent = <&gpio4>;
+				interrupts = <28 0>;
+			};
+		};
+	};
+
+	fragment@4 {
+		target-path = "/";
+		__overlay__ {
+			led_slot42 {
+				compatible = "gpio-leds";
+				iqrf-led@1 {
+					label = "iqrf-42-ledr";
+					gpios = <&gpio_can 0 0>;
+					default-state = "off";
+					color = <1>;
+				};
+				iqrf-led@2 {
+					label = "iqrf-42-ledg";
+					gpios = <&gpio_can 1 0>;
+					default-state = "off";
+					color = <2>;
+				};
+			};
+		}; 
+	};
+
+   fragment@5 {
+       target-path = "/";
+       __overlay__ {
+           /* external oscillator of mcp2515 */
+           can42_osc: can42_osc {
+               compatible = "fixed-clock";
+               #clock-cells = <0>;
+               clock-frequency  = <16000000>;
+           };
+       };
+   };
+
+};
